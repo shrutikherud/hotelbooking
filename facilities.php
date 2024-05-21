@@ -22,9 +22,9 @@
     <h2 class="fw-bold h-font text-center">OUR FACILITIES</h2>
     <div class="h-line bg-dark"></div>
     <p class="text-center mt-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-      Temporibus incidunt odio quos <br> dolore commodi repudiandae 
-      tenetur consequuntur et similique asperiores.
+    At Get Hotels, we pride ourselves on providing our guests with a memorable and comfortable stay. 
+    <br>Our extensive range of facilities ensures that your every need is met, 
+    whether you're traveling for business or leisure.
     </p>
   </div>
 

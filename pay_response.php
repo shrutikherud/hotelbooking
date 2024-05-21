@@ -3,8 +3,8 @@
   require('admin/inc/db_config.php');
   require('admin/inc/essentials.php');
 
-  require('inc/paytm/config_paytm.php');
-  require('inc/paytm/encdec_paytm.php');
+  //require('inc/paytm/config_paytm.php');
+  //require('inc/paytm/encdec_paytm.php');
 
   date_default_timezone_set("Asia/Kolkata");
 
@@ -19,7 +19,7 @@
     $_SESSION['login'] = true;
     $_SESSION['uId'] = $user_fetch['id'];
     $_SESSION['uName'] = $user_fetch['name'];
-    $_SESSION['uPic'] = $user_fetch['profile'];
+    //$_SESSION['uPic'] = $user_fetch['profile'];
     $_SESSION['uPhone'] = $user_fetch['phonenum'];
   }
 
@@ -81,9 +81,6 @@
   else{
     redirect('index.php');
   }
-
-
-
 
 
 ?>

@@ -10,7 +10,7 @@
   {
     $frm_data = filteration($_GET);
 
-    $query = "SELECT bo.*, bd.*,uc.email FROM `booking_order` bo
+    $query = "SELECT bo.*, bd.*,uc.phonenum FROM `booking_order` bo
       INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id
       INNER JOIN `user_cred` uc ON bo.user_id = uc.id
       WHERE ((bo.booking_status='booked' AND bo.arrival=1) 

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 function encrypt_e($input, $ky) {
 	$key   = html_entity_decode($ky);

@@ -2,6 +2,7 @@
 
   require('../admin/inc/db_config.php');
   require('../admin/inc/essentials.php');
+  //require_once('rooms.php');
   date_default_timezone_set("Asia/Kolkata");
 
   session_start();
@@ -50,8 +51,19 @@
     $settings_r = mysqli_fetch_assoc(mysqli_query($con,$settings_q));
 
 
-    // query for room cards with guests filter
-    $room_res = select("SELECT * FROM `rooms` WHERE `adult`>=? AND `children`>=? AND `status`=? AND `removed`=?",[$adults,$children,1,0],'iiii');
+    // if (isset($_GET['sort']) && $_GET['sort'] === 'true') {
+    //   // Fetch rooms without sorting
+    //   $room_res = select("SELECT * FROM `rooms` WHERE `adult`>=? AND `children`>=? AND `status`=? AND `removed`=?
+    //                       ORDER BY id DESC",[$adults,$children,1,0],'iiii');
+    // } else {
+      // Fetch rooms with sorting by average rating
+    $room_res = select("SELECT rooms.*, AVG(rating_review.rating) AS avg_rating 
+                          FROM rooms 
+                          LEFT JOIN rating_review ON rooms.id = rating_review.room_id 
+                          WHERE `adult`>=? AND `children`>=? AND `status`=? AND `removed`=?
+                          GROUP BY rooms.id 
+                          ORDER BY avg_rating DESC",[$adults,$children,1,0],'iiii');
+    // }
 
     while($room_data = mysqli_fetch_assoc($room_res))
     {
@@ -131,6 +143,30 @@
         $book_btn = "<button onclick='checkLoginToBook($login,$room_data[id])' class='btn btn-sm w-100 text-white custom-bg shadow-none mb-2'>Book Now</button>";
       }
 
+      $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
+            WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESC LIMIT 20";
+
+          $rating_res = mysqli_query($con,$rating_q);
+          $rating_fetch = mysqli_fetch_assoc($rating_res);
+
+          $rating_data = "";
+
+          if($rating_fetch['avg_rating']!=NULL)
+          {
+            $rating_data = "<div class='rating mb-4'>
+              <h6 class='mb-1'>Rating</h6>
+              <span class='badge rounded-pill bg-light'>
+            ";
+
+            for($i=0; $i<$rating_fetch['avg_rating']; $i++){
+              $rating_data .="<i class='bi bi-star-fill text-warning'></i> ";
+            }
+
+            $rating_data .= "</span>
+              </div>
+            ";
+          }
+
       // print room card
 
       $output.="
@@ -158,6 +194,9 @@
                   $room_data[children] Children
                 </span>
               </div>
+              $rating_data
+                  <div class='rating mb-4'>
+                  </div>
             </div>
             <div class='col-md-2 mt-lg-0 mt-md-0 mt-4 text-center'>
               <h6 class='mb-4'>₹$room_data[price] per night</h6>

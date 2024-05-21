@@ -67,7 +67,7 @@
     if(mysqli_num_rows($u_exist)!=0)
     {
       $u_exist_fetch = mysqli_fetch_assoc($u_exist);
-      echo ($u_exist_fetch['phone'] == $data['phone']) ? 'phone_already' : 'phone_already';
+      echo ($u_exist_fetch['phonenum'] == $data['phonenum']) ? 'phonenum_already' : 'phone_already';
       exit;
     }
 
@@ -94,7 +94,7 @@
       exit;
     }*/
 
-    /*$enc_pass = password_hash($data['pass'],PASSWORD_BCRYPT);
+    $enc_pass = password_hash($data['pass'],PASSWORD_BCRYPT);
 
     $query = "INSERT INTO `user_cred`(`name`, `phonenum`, `aadhar`, `address`, `pincode`, `dob`,
      `password`) VALUES (?,?,?,?,?,?,?)";
@@ -107,7 +107,7 @@
     }
     else{
       echo 'ins_failed';
-    }*/
+    }
 
   }
 
@@ -123,19 +123,22 @@
       echo 'inv_mob';
     }
     else
-    /*{
+    {
       $u_fetch = mysqli_fetch_assoc($u_exist);
-      if($u_fetch['is_verified']==0){
+      /*if($u_fetch['is_verified']==0){
         echo 'not_verified';
-      }
-      else if($u_fetch['status']==0){
-        echo 'inactive';
       }*/
-     {
+      if($u_fetch['status']==0)
+      {
+        echo 'inactive';
+      }
+    }
+    {
       if(!password_verify($data['pass'],$u_fetch['password'])){
         echo 'invalid_pass';
       }
-      else{
+      else
+      {
         session_start();
         $_SESSION['login'] = true;
         $_SESSION['uId'] = $u_fetch['id'];
@@ -146,7 +149,7 @@
       }
     }
   }
-  
+ 
 
   /*if(isset($_POST['forgot_pass']))
   {
@@ -193,7 +196,7 @@
 
   }*/
 
-  if(isset($_POST['recover_user']))
+  /*if(isset($_POST['recover_user']))
   {
     $data = filteration($_POST);
     
@@ -211,6 +214,6 @@
     else{
       echo 'failed';
     }
-  }
-  
+  }*/
+
 ?>

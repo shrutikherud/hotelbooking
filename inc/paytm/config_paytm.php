@@ -1,4 +1,4 @@
-<?php
+ <?php 
 
 	define('PAYTM_ENVIRONMENT', 'TEST'); // PROD
 	define('PAYTM_MERCHANT_KEY', 'PASTE YOUR MERCHANT KEY'); //Change this constant's value with Merchant key received from Paytm.

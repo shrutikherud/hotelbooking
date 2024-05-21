@@ -37,7 +37,7 @@
         <div style="font-size: 14px;">
           <a href="index.php" class="text-secondary text-decoration-none">HOME</a>
           <span class="text-secondary"> > </span>
-          <a href="rooms.php" class="text-secondary text-decoration-none">ROOMS</a>
+          <a href="rooms.php" class="text-secondary text-decoration-none">HOTELS</a>
         </div>
       </div>
 
@@ -199,14 +199,14 @@
           <h5 class="mb-3">Reviews & Ratings</h5>
 
           <?php
-            $review_q = "SELECT rr.*,uc.name AS uname, uc.profile, r.name AS rname FROM `rating_review` rr
+            $review_q = "SELECT rr.*,uc.name AS uname, r.name AS rname FROM `rating_review` rr
               INNER JOIN `user_cred` uc ON rr.user_id = uc.id
               INNER JOIN `rooms` r ON rr.room_id = r.id
               WHERE rr.room_id = '$room_data[id]'
               ORDER BY `sr_no` DESC LIMIT 15";
 
             $review_res = mysqli_query($con,$review_q);
-            $img_path = USERS_IMG_PATH;
+            // $img_path = USERS_IMG_PATH;
 
             if(mysqli_num_rows($review_res)==0){
               echo 'No reviews yet!';
@@ -223,7 +223,7 @@
                 echo<<<reviews
                   <div class="mb-4">
                     <div class="d-flex align-items-center mb-2">
-                      <img src="$img_path$row[profile]" class="rounded-circle" loading="lazy" width="30px">
+                    
                       <h6 class="m-0 ms-2">$row[uname]</h6>
                     </div>
                     <p class="mb-1">

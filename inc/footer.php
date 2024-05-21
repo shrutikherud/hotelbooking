@@ -115,7 +115,7 @@
       /*else if(this.responseText == 'email_already'){
         alert('error',"Email is already registered!");
       }*/
-      else if(this.responseText == 'phone_already'){
+      else if(this.responseText == 'phonenum_already'){
         alert('error',"Phone number is already registered!");
       }
       /*else if(this.responseText == 'inv_img'){

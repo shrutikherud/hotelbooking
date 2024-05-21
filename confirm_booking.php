@@ -62,7 +62,7 @@
         <div style="font-size: 14px;">
           <a href="index.php" class="text-secondary text-decoration-none">HOME</a>
           <span class="text-secondary"> > </span>
-          <a href="rooms.php" class="text-secondary text-decoration-none">ROOMS</a>
+          <a href="rooms.php" class="text-secondary text-decoration-none">HOTELS</a>
           <span class="text-secondary"> > </span>
           <a href="#" class="text-secondary text-decoration-none">CONFIRM</a>
         </div>
@@ -112,12 +112,19 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label class="form-label">Check-in</label>
-                  <input name="checkin" onchange="check_availability()" type="date" class="form-control shadow-none" required>
+                  <input name="checkin" onchange="check_availability()" type="date" id="checkin" class="form-control shadow-none" required>
                 </div>
                 <div class="col-md-6 mb-4">
                   <label class="form-label">Check-out</label>
-                  <input name="checkout" onchange="check_availability()" type="date" class="form-control shadow-none" required>
+                  <input name="checkout" onchange="check_availability()" type="date" id="checkout" class="form-control shadow-none" required>
                 </div>
+                <script>
+                // Get the current date in yyyy-mm-dd format
+                var currentDate = new Date().toISOString().split('T')[0];
+                // Set the minimum date for the input fields
+                document.getElementById('checkin').setAttribute('min', currentDate);
+                document.getElementById('checkout').setAttribute('min', currentDate);
+                </script>
                 
                 <div class="col-12">
                   <div class="spinner-border text-info mb-3 d-none" id="info_loader" role="status">
@@ -125,6 +132,26 @@
                   </div>
 
                   <h6 class="mb-3 text-danger" id="pay_info">Provide check-in & check-out date !</h6>
+                  <!-- <form action="pay_status.php" method="post">
+                    
+                   Payment options with radio buttons 
+                  <label>
+                    <input type="radio" name="payment_option" value="upi">
+                    <img src="images/upi1.jpg" alt="Upi" class="payment-icon">
+                  </label>
+
+                  <label>
+                    <input type="radio" name="payment_option" value="paypal">
+                    <img src="images/paypal1.jpg" alt="PayPal" class="payment-icon">
+                  </label>
+
+                  <label>
+                    <input type="radio" name="payment_option" value="card">
+                    <img src="images/card1.jpg" alt="Card" class="payment-icon">
+                  </label>
+
+                  </form> -->
+
 
                   <button name="pay_now" class="btn w-100 text-white custom-bg shadow-none mb-1" disabled>Pay Now</button>
                 </div>

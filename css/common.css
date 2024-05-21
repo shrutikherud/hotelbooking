@@ -41,3 +41,9 @@ input[type=number] {
   right: 25px;
   z-index: 1111;
 }
+.payment-icon {
+  width: 5px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 100px; /* Add some spacing between images */
+}
+

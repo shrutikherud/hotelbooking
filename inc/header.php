@@ -30,7 +30,7 @@
             echo<<<data
               <div class="btn-group">
                 <button type="button" class="btn btn-outline-dark shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                
+                  $_SESSION[uName]
                 </button>
                 <ul class="dropdown-menu dropdown-menu-lg-end">
                   <li><a class="dropdown-item" href="profile.php">Profile</a></li>
@@ -70,7 +70,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Mobile</label>
-            <input type="text" name="email_mob" required class="form-control shadow-none">
+            <input type="text" name="mob" required class="form-control shadow-none">
           </div>
           <div class="mb-4">
             <label class="form-label">Password</label>

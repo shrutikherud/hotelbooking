@@ -5,9 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require('inc/links.php'); ?>
+  <?php require_once('admin/inc/db_config.php'); ?>
   <title><?php echo $settings_r['site_title'] ?> - HOTELS</title>
 </head>
 <body class="bg-light">
+
 
   <?php 
     require('inc/header.php'); 
@@ -26,6 +28,8 @@
       $adult_default = $frm_data['adult'];
       $children_default = $frm_data['children'];
     }
+
+    
   ?>
 
   <div class="my-5 px-4">
@@ -51,11 +55,24 @@
                   <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
                 </h5>
                 <label class="form-label">Check-in</label>
-                <input type="date" class="form-control shadow-none mb-3" value="<?php echo $checkin_default ?>" id="checkin" onchange="chk_avail_filter()">
+                <input type="date" id="checkin" class="form-control shadow-none mb-3" value="<?php echo $checkin_default ?>" id="checkin" onchange="chk_avail_filter()">
                 <label class="form-label">Check-out</label>
-                <input type="date" class="form-control shadow-none" value="<?php echo $checkout_default ?>"  id="checkout" onchange="chk_avail_filter()">
+                <input type="date" id="checkout" class="form-control shadow-none" value="<?php echo $checkout_default ?>"  id="checkout" onchange="chk_avail_filter()">
               </div>
-
+              <script>
+              // Get the current date in yyyy-mm-dd format
+              var currentDate = new Date().toISOString().split('T')[0];
+              // Set the minimum date for the input fields
+              document.getElementById('checkin').setAttribute('min', currentDate);
+              document.getElementById('checkout').setAttribute('min', currentDate);
+              </script>
+            <!-- <div class="border bg-light p-3 rounded mb-3">
+              <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
+                  <span>FILTER</span>
+                  <button id="sortButton" onclick="sortRooms()" class="btn shadow-none btn-sm text-secondary">SORT</button>
+              </h5>
+            </div> -->
+            
               <!-- Facilities -->
               <div class="border bg-light p-3 rounded mb-3">
                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
@@ -112,6 +129,7 @@
     let checkin = document.getElementById('checkin');
     let checkout = document.getElementById('checkout');
     let chk_avail_btn = document.getElementById('chk_avail_btn');
+    
 
     let adults = document.getElementById('adults');
     let children = document.getElementById('children');
@@ -119,6 +137,10 @@
     
     let facilities_btn = document.getElementById('facilities_btn');
 
+    // function sortRooms() 
+    // {
+    //     window.location.href = 'rooms.php?fetch_rooms&sort=true';
+    // }
     function fetch_rooms()
     {
       let chk_avail = JSON.stringify({
@@ -163,6 +185,7 @@
       xhr.send();
     }
 
+
     function chk_avail_filter(){
       if(checkin.value!='' && checkout.value !=''){
         fetch_rooms();
@@ -204,6 +227,24 @@
     window.onload = function(){
       fetch_rooms();
     }
+    // Inside the <script> tag at the bottom of the HTML body, add this function
+    // function sort() {
+    //   let xhr = new XMLHttpRequest();
+    //   xhr.open("GET", "ajax/rooms.php?fetch_rooms&sort=true", true);
+
+    //   xhr.onprogress = function() {
+    //     rooms_data.innerHTML = `<div class="spinner-border text-info mb-3 d-block mx-auto" id="loader" role="status">
+    //       <span class="visually-hidden">Loading...</span>
+    //     </div>`;
+    //   }
+
+    //   xhr.onload = function() {
+    //     rooms_data.innerHTML = this.responseText;
+    //   }
+
+    //   xhr.send();
+    // }
+
 
   </script>
 
